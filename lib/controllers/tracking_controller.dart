@@ -219,7 +219,7 @@ class TrackingController extends GetxController {
     try {
       _updateConnectionStatus(StatusRequest.loading);
       _wsChannel = WebSocketChannel.connect(
-        Uri.parse('wss://your-api-server/live-tracking/$roundId'),
+        Uri.parse(''),
       );
 
       _wsChannel.ready.then((_) {
