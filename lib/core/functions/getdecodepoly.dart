@@ -13,7 +13,7 @@ PolylinePoints polylinePoints = PolylinePoints();
 
 Future<void> showPolyline(lat, long, destlat, destlong) async {
   String url =
-      "https://maps.googleapis.com/maps/api/directions/json?origin=$lat,$long&destination=$destlat,$destlong&key=AIzaSyB4uS7R4gVcI9BbkvUYTokQC2aOHm1R5cw";
+      "https://maps.googleapis.com/maps/api/directions/json?origin=$lat,$long&destination=$destlat,$destlong&key=";
 
   var response = await http.post(Uri.parse(url));
   var responsebody = jsonDecode(response.body);
