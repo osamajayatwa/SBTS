@@ -1,6 +1,6 @@
 class AppLink {
   static const String server =
-      "https://apex.oracle.com/pls/apex/mohammad99/TrackingApp";
+      "";
 
   static const String imageststatic = "$server/upload";
 
