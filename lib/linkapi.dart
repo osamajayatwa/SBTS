@@ -20,7 +20,9 @@ class AppLink {
   static const String resend = "$server/";
 
 // ================================= ForgetPassword ==========================//
+  static const String token = "$server/UpdateToken";
   static const String checkEmail = "$server/";
+
   static const String forgetverifycode = "$server/";
 // =================================== Home ==========================//
   static const String homepage = "$server/StdForParent";

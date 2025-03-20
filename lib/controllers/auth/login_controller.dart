@@ -9,6 +9,7 @@ import 'package:bus_tracking_users/core/services/services.dart';
 import 'package:bus_tracking_users/data/data_source/remote/auth/logindata.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 abstract class LoginController extends GetxController {
@@ -26,7 +27,7 @@ class LoginControllerImp extends LoginController {
 
   late TextEditingController username;
   late TextEditingController password;
-
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   bool isshowpassword = true;
   List data = [];
 
@@ -48,13 +49,12 @@ class LoginControllerImp extends LoginController {
             username.text, password.text, fcmToken!);
         statusRequest = handilingData(response);
         print("===================================================");
-
         print("Controller username: $username");
         print("Controller password: $password");
         print("Controller fcmToken: $fcmToken");
         print("Controller Response: $response");
-
         print("===================================================");
+
         if (statusRequest == StatusRequest.success &&
             response['status'] == 'Successfull') {
           final parentId = response['parent_id']?.toString() ?? "";
@@ -65,6 +65,7 @@ class LoginControllerImp extends LoginController {
           namear = utf8.decode(namear.runes.toList());
           final nationalNumber = response['National_no']?.toString() ?? "";
           final address = response['address']?.toString() ?? "";
+
           myServices.sharedPreferences
             ..setString("name", username.text)
             ..setString("id", parentId)
@@ -75,6 +76,8 @@ class LoginControllerImp extends LoginController {
             ..setString("nationalNumber", nationalNumber)
             ..setString("address", address)
             ..setString("step", "2");
+
+          await secureStorage.write(key: "fcmToken", value: fcmToken);
 
           final userid = myServices.sharedPreferences.getString("id")!;
           FirebaseMessaging.instance.subscribeToTopic("users");
@@ -121,8 +124,9 @@ class LoginControllerImp extends LoginController {
     username = TextEditingController();
     password = TextEditingController();
     _tokenRefreshSub =
-        FirebaseMessaging.instance.onTokenRefresh.listen((newToken) {
+        FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
       if (myServices.sharedPreferences.containsKey("id")) {
+        await secureStorage.write(key: "fcmToken", value: newToken);
         login();
       }
     });
@@ -133,6 +137,7 @@ class LoginControllerImp extends LoginController {
   void dispose() {
     username.dispose();
     password.dispose();
+    _tokenRefreshSub?.cancel();
     super.dispose();
   }
 }

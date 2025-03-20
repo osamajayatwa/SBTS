@@ -50,7 +50,7 @@ class TrackingController extends GetxController {
 
   @override
   void onClose() {
-    mapController?.setMapStyle(null); // Reset map style
+    mapController?.setMapStyle(null);
     _wsSubscription?.cancel();
 
     _wsSubscription?.cancel();

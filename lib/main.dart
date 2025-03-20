@@ -1,3 +1,4 @@
+import 'package:bus_tracking_users/controllers/auth/token_controller.dart';
 import 'package:bus_tracking_users/core/Binding/intialbinding.dart';
 import 'package:bus_tracking_users/core/localization/changelocal.dart';
 import 'package:bus_tracking_users/core/localization/translation.dart';
@@ -8,6 +9,8 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AuthController authController = Get.put(AuthController());
+  await authController.checkLoginStatus();
   await initialServices();
   runApp(const MyApp());
 }

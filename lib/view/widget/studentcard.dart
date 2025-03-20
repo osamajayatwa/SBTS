@@ -89,14 +89,14 @@ class StudentCard extends StatelessWidget {
                       const SizedBox(height: 12),
                       Row(
                         children: [
-                          Icon(Icons.circle,
-                              size: 10,
-                              color: isNotGoing ? Colors.red : Colors.green),
-                          const SizedBox(width: 5),
-                          Text(
-                            isNotGoing ? "At Home".tr : "In Bus".tr,
-                            style: TextStyle(color: AppColor.grey3),
-                          ),
+                          // Icon(Icons.circle,
+                          //     size: 10,
+                          //     color: isNotGoing ? Colors.red : Colors.green),
+                          // const SizedBox(width: 5),
+                          // Text(
+                          //   isNotGoing ? "At Home".tr : "In Bus".tr,
+                          //   style: TextStyle(color: AppColor.grey3),
+                          // ),
                           Spacer(),
                           ElevatedButton(
                             onPressed:
