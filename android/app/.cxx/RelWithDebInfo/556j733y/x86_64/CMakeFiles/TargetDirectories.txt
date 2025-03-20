@@ -1,2 +1,0 @@
-C:/src/bus_tracking_users/android/app/.cxx/RelWithDebInfo/556j733y/x86_64/CMakeFiles/edit_cache.dir
-C:/src/bus_tracking_users/android/app/.cxx/RelWithDebInfo/556j733y/x86_64/CMakeFiles/rebuild_cache.dir

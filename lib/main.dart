@@ -9,8 +9,7 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AuthController authController = Get.put(AuthController());
-  await authController.checkLoginStatus();
+
   await initialServices();
   runApp(const MyApp());
 }

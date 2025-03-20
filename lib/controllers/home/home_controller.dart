@@ -1,3 +1,4 @@
+import 'package:bus_tracking_users/controllers/auth/token_controller.dart';
 import 'package:bus_tracking_users/core/functions/fcmconfig.dart';
 import 'package:bus_tracking_users/core/localization/changelocal.dart';
 import 'package:bus_tracking_users/data/data_source/remote/childstatus.dart';
@@ -20,6 +21,8 @@ abstract class HomeController extends GetxController {
 }
 
 class HomeControllerImp extends HomeController {
+  AuthController authController = Get.put(AuthController());
+
   ChildStatus childStatus = ChildStatus(Get.find());
   HomeData homeData = HomeData(Get.find());
   final LocaleController localeController = Get.find<LocaleController>();
@@ -39,8 +42,15 @@ class HomeControllerImp extends HomeController {
   var rides = <Items>[].obs;
 
   @override
-  initialData() {
-    initialModel();
+  initialData() async* {
+    phone = myServices.sharedPreferences.getString("phone");
+    nationalNumber = myServices.sharedPreferences.getString("nationalNumber");
+    address = myServices.sharedPreferences.getString("address");
+    lang = myServices.sharedPreferences.getString("lang") ?? "en";
+    username = myServices.sharedPreferences.getString("name");
+    id = myServices.sharedPreferences.getString("id");
+    parentname = myServices.sharedPreferences.getString("name_en") ?? '';
+    parentnamear = myServices.sharedPreferences.getString("name_ar") ?? '';
     Locale locale = Locale(lang!);
     if (Get.locale != locale) {
       Get.updateLocale(locale);
@@ -52,17 +62,6 @@ class HomeControllerImp extends HomeController {
       requestPermissionNotification();
     });
     getstudent(id!);
-  }
-
-  initialModel() {
-    phone = myServices.sharedPreferences.getString("phone");
-    nationalNumber = myServices.sharedPreferences.getString("nationalNumber");
-    address = myServices.sharedPreferences.getString("address");
-    lang = myServices.sharedPreferences.getString("lang") ?? "en";
-    username = myServices.sharedPreferences.getString("name");
-    id = myServices.sharedPreferences.getString("id");
-    parentname = myServices.sharedPreferences.getString("name_en") ?? '';
-    parentnamear = myServices.sharedPreferences.getString("name_ar") ?? '';
   }
 
   Future<void> getstudent(String id) async {
@@ -166,9 +165,10 @@ class HomeControllerImp extends HomeController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+    await initialData();
+
     super.onInit();
-    initialData();
   }
 
   @override

@@ -1,18 +1,18 @@
+import 'package:bus_tracking_users/core/class/crud.dart';
 import 'package:bus_tracking_users/core/services/services.dart';
 import 'package:bus_tracking_users/data/data_source/remote/auth/token_data.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AuthController extends GetxController {
-  TokenData tokenData = TokenData(Get.find());
+  TokenData tokenData = TokenData(Get.put(Crud()));
   final storage = FlutterSecureStorage();
   var token = "".obs;
   String? parent;
   String table = "1";
 
-  MyServices myServices = Get.find();
+  MyServices myServices = Get.put(MyServices());
 
   @override
   void onInit() {
